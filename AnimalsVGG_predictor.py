@@ -40,14 +40,15 @@ images = images.astype("float") / 255.0
 model = load_model(pathModel)
 predictions = model.predict(images)
 
-animals = ["cat", "dog", "panda"]
 
+# in the case of using AnimalsDataset the result is ["cat", "dog", "panda"]
+uniqueLabels = np.unique(labels)
 
 for (i,image) in enumerate(images):
-    print("predicted -> {}".format(animals[predictions[i].argmax()]))
-    print("it is -> {}".format(labels[i]))
+    predicted = uniqueLabels[predictions[i].argmax()]
+    actualObject = labels[i]
+    title = "Predicted -> " + predicted + " ; Actual -> " + actualObject
     plt.imshow(image)
-    plt.title(animals[predictions[i].argmax()])
+    plt.title(title)
     plt.show()
-
 
